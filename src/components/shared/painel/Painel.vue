@@ -29,7 +29,7 @@ export default {
   .painel {
     padding: 0 auto;
     display: inline-block;
-    margin: 5px;
+    margin: 30px 5px;
     box-shadow: 5px 5px 10px grey;
     width: 200px;
     height: 100%;

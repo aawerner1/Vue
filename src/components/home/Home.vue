@@ -47,7 +47,7 @@ export default {
 
   data() {
     return {
-      titulo: 'Alura',
+      titulo: 'AppPic',
       fotos: [],
       filtro: ''
     }
@@ -79,6 +79,7 @@ export default {
 
   h1 {
     color: #29335C;
+    margin-bottom:30px;
   }
 
   .centralizado {
