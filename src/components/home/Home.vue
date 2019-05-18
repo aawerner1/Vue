@@ -3,19 +3,21 @@
 
     <h1 class="titulo">{{ titulo }}</h1>
 
+    <p v-show="mensagem" class="centralizado">{{ mensagem }}</p>
+
+
     <input type="search" class="filtro" placeholder="Filtre a imagem desejada" @input="filtro = $event.target.value">
 
     <ul class="lista-fotos">
       <li class="lista-fotos-item" v-for="foto in fotosComFiltro">
 
       <meu-painel :titulo="foto.titulo">
-        <imagem-responsiva :url="foto.url" :titulo="foto.titulo"></imagem-responsiva>
+        <imagem-responsiva v-meu-transform:scale.animate="1.1" :url="foto.url" :titulo="foto.titulo"></imagem-responsiva>
 
         <meu-button 
             tipo="button" 
             rotulo="Adicionar" 
-            :confirmacao="false"
-            @botaoAtivado="remove(foto)">
+            :confirmacao="false">
         </meu-button>
         <meu-button 
             tipo="button" 
@@ -49,17 +51,31 @@ export default {
     return {
       titulo: 'AppPic',
       fotos: [],
-      filtro: ''
+      filtro: '',
+      mensagem: '',
     }
   },
   created() {
-    let promise = this.$http.get('http://localhost:3000/v1/fotos')
+    let promise = this.$http.get('v1/fotos')
       .then(res => res.json())
       .then(fotos => this.fotos = fotos, er => console.log(err));
   },
   methods: {
       remove(foto) {
-          alert('remover: ' + foto.titulo)
+        this.$http
+          .delete(`v1/fotos/${foto._id}`)
+          
+          .then(() => {
+            let indice = this.fotos.indexOf(foto)
+            this.fotos.splice(indice,1)
+            this.mensagem = "Foto removida com sucesso"
+
+            }, 
+            
+            err => {
+            console.log(err),
+            this.mensagem = "Erro ao remover"
+          });
       }
   },
   computed: {

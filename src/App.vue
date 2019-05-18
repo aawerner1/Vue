@@ -1,12 +1,14 @@
 <template>
   
-  <div class="corpo">
-
+  <div>
    <meu-menu :rotas="routes"></meu-menu>
 
-    <transition name="pagina">
-          <router-view></router-view>
-    </transition>
+    <div class="corpo">
+      <transition name="pagina">
+              <router-view></router-view>
+      </transition>
+    </div>
+    
   </div>
 </template>
 
